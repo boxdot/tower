@@ -49,7 +49,15 @@ where
     {
         let (tx, rx) = mpsc::channel(bound);
         let (handle, worker) = Worker::new(service, rx);
-        tokio::spawn(worker);
+
+        cfg_if::cfg_if! {
+            if #[cfg(not(target_arch = "wasm32"))] {
+                tokio::spawn(worker);
+            } else {
+                wasm_bindgen_futures::spawn_local(worker);
+            }
+        }
+
         Buffer { tx, handle }
     }
 
