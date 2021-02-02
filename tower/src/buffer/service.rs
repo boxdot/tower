@@ -67,7 +67,14 @@ where
         Request: Send + 'static,
     {
         let (service, worker) = Self::pair(service, bound);
-        tokio::spawn(worker);
+        #[cfg(not(feature = "wasm"))]
+        {
+            tokio::spawn(worker);
+        }
+        #[cfg(feature = "wasm")]
+        {
+            wasm_bindgen_futures::spawn_local(worker);
+        }
         service
     }
 

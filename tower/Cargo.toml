@@ -60,6 +60,7 @@ spawn-ready = ["futures-util", "tokio/sync", "tokio/rt", "util"]
 steer = ["futures-util"]
 timeout = ["tokio/time"]
 util = ["futures-util"]
+wasm = ["wasm-bindgen-futures"]
 
 [dependencies]
 futures-core = "0.3"
@@ -75,6 +76,7 @@ slab = { version = "0.4", optional = true }
 tokio = { version = "1", optional = true, features = ["sync"] }
 tokio-stream = { version = "0.1.0", optional = true }
 tracing = { version = "0.1.2", optional = true }
+wasm-bindgen-futures = { version = "0.4.20", optional = true }
 
 [dev-dependencies]
 futures = "0.3"
